@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres-bi
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bi
+    # volumes:
+    #   - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - personal
+
+  node:
+    build: .
+    image: peter/bi:ex1
+    pull_policy: never
+    container_name: node-bi
+    working_dir: /app
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - postgres
+    networks:
+      - personal
+
+volumes:
+  postgres-data:
+
+networks:
+  personal:
+    external: true
+    driver: bridge
