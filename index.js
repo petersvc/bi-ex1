@@ -1,5 +1,4 @@
-// index.js
-const { conectarBanco, mostrarMenu } = require("./consultas");
+import { mostrarMenu, conectarBanco } from "./consultas.js";
 
 async function iniciarApp() {
   await conectarBanco();

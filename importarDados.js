@@ -1,6 +1,8 @@
-const danfo = require("danfojs-node");
-const { Client } = require("pg");
-const fs = require("fs");
+import danfo from "danfojs-node";
+import pkg from "pg";
+const { Client } = pkg;
+
+import fs from "fs";
 
 const client = new Client({
   host: "postgres-bi",
@@ -101,7 +103,7 @@ async function inserirDados(nomeTabela, caminhoCSV) {
   console.log(`✅ Dados inseridos: ${nomeTabela}`);
 }
 
-async function importarDados() {
+export async function importarDados() {
   await client.connect();
   await criarTabelas();
 
@@ -117,5 +119,3 @@ async function importarDados() {
 
   await client.end();
 }
-
-module.exports = { importarDados };
