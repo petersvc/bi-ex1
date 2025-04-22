@@ -21,11 +21,11 @@ services:
     image: peter/bi:ex1
     pull_policy: never
     container_name: node-bi
-    working_dir: /app
+    # security_opt:
+    #   - label=disable
     volumes:
-      - .:/app
-    stdin_open: true
-    tty: true
+      - .:/app:Z  # Usando :Z para ajustar o contexto automaticamente
+      - /app/node_modules
     depends_on:
       postgres:
         condition: service_healthy
